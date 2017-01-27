@@ -53,10 +53,11 @@ def get_movies_info(num_of_movies=None, is_rated=False, is_mass_market=False):
     for title, num_of_cinemas in afisha_movies_info:
         if num_of_movies and (len(movies_info) >= num_of_movies):
             break
+        if is_mass_market and (num_of_cinemas < min_num_of_cinemas):
+            continue
         movie_page = get_movie_page_from_kinopoisk(title)
         rating, ratings_counter = get_rating_info(movie_page)
-        if (is_rated and (not rating)) \
-        or  (is_mass_market and (num_of_cinemas < min_num_of_cinemas)):
+        if is_rated and (not rating):
             continue
         movies_info.append({'title': title,
                       'number of cinemas': num_of_cinemas,
