@@ -17,14 +17,13 @@ def get_movies_info_from_afisha(afisha_html):
         number_of_cinemas = len(schedule_html.find_all('td', class_='b-td-item'))
         yield title, number_of_cinemas
 
-def get_movie_page_from_kinopoisk(movie_title):
+def get_movie_page_from_kinopoisk(movie_title, seconds_to_wait=10):
     kinopoisk_search_url = 'https://www.kinopoisk.ru/index.php'
     payload = {'first': 'yes', 'kp_query': movie_title}
     user_agent = ('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) '
                   'Gecko/20100101 Firefox/50.0')
     headers = {'User-Agent':user_agent}
     timeout = (5,5)
-    seconds_to_wait = 10
     request = requests.get(url=kinopoisk_search_url,
                            params=payload,
                            timeout=timeout,
