@@ -1,6 +1,7 @@
 import heapq
 import unicodedata
 import time
+from string import Formatter
 
 from bs4 import BeautifulSoup
 import requests
@@ -70,16 +71,16 @@ def get_rating(movies_info):
 
 def main():
     number_of_best_movies = 10
+    template = (" • {title}"
+                "\nRating: {rating:2f}/10 (Total votes: {number of ratings})"
+                "\nNumber of cinemas: {number of cinemas}")
     movies_info = get_movies_info(is_rated=True,
                                   is_mass_market=True)
     best_movies = heapq.nlargest(number_of_best_movies,
                                 movies_info,
                                 key=get_rating)
     for movie in best_movies:
-        print(' • {}'.format(movie['title'])) 
-        print('Rating: {:.2f}/10 (Total votes: {})'.format(
-            movie['rating'], movie['number of ratings']))
-        print('Number of cinemas: {}'.format(movie['number of cinemas']))
+        print(template.format(**movie))
 
 if __name__ == '__main__':
     main()
