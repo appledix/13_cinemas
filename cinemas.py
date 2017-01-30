@@ -42,9 +42,9 @@ def get_rating_info(movie_page_html):
             return float(average_rating.text), number_of_ratings
     return None, None
 
-def get_movies_info(num_of_movies=None, is_rated=False, is_mass_market=False):
+def get_movies_info(num_of_movies=None, is_rated=False, is_mass_market=False,
+                    min_num_of_cinemas=25):
     movies_info = []
-    min_num_of_cinemas = 25 # Minimal number of cinemas for mass market movie
     afisha_schedule = 'http://www.afisha.ru/msk/schedule_cinema/'
     afisha_html = get_raw_html(afisha_schedule)
     afisha_movies_info = get_movies_info_from_afisha(afisha_html)
